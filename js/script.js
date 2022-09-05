@@ -41,11 +41,15 @@ function displayPagination(rowPerPage) {
     for (let i = 0; i < pagesCount; i++) {
         const currentLi = document.createElement('li');
         currentLi.classList.add('pagination__item');
-        currentLi.innerText = +i;
+        currentLi.innerText = +(i + 1);
         paginationEl.appendChild(currentLi);
 
         currentLi.addEventListener('click', (e) => {
-            displayList(rows, i);
+            const postsWrapper = document.querySelector(
+                '.posts__list__wrapper'
+            );
+            postsWrapper.innerHTML = '';
+            displayPostsList(rows, i + 1);
         });
     }
 }
