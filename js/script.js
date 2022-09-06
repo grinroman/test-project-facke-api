@@ -6,33 +6,43 @@ const postsData = await postService.getAllPosts();
 
 let currentPage = 1;
 let rows = 10;
-
-async function displayPostsList(rowPerPage, page) {
+let currentDataDublicate;
+async function displayPostsList(rowPerPage, page = 0, incomingArr) {
     const postsWrapper = document.querySelector('.posts__list__wrapper');
     --page;
     const start = rowPerPage * page;
     const end = start + rowPerPage;
-    const paginatedData = postsData.slice(start, end);
-
+    let paginatedData;
+    if (incomingArr) {
+        paginatedData = incomingArr;
+    } else {
+        paginatedData = postsData.slice(start, end);
+    }
+    console.log(paginatedData);
+    // const paginatedData = incomingArr
+    //     ? incomingArr
+    //     : postsData.slice(start, end);
+    currentDataDublicate = postsData.slice(start, end);
+    postsWrapper.innerHTML = '';
     paginatedData.forEach((el) => {
-        const postEl = document.createElement('li');
-        postEl.classList.add('post');
+        const headerWrapper = document.createElement('li');
 
-        const headerEl = document.createElement('div');
-        headerEl.classList.add('post__header');
-        headerEl.innerText = el.title;
-        postEl.appendChild(headerEl);
+        headerWrapper.classList.add('post');
 
-        const infoEl = document.createElement('div');
-        infoEl.classList.add('post__info');
-        infoEl.innerText = el.body;
-        postEl.appendChild(infoEl);
+        const textOfEl = document.createElement('li');
+        textOfEl.innerText = el.title;
+        textOfEl.classList.add('post__header');
+        headerWrapper.appendChild(textOfEl);
 
-        postsWrapper.appendChild(postEl);
+        const deleteButton = document.createElement('div');
+        deleteButton.innerText = `✖`;
+        deleteButton.classList.add('delete__button');
+        headerWrapper.appendChild(deleteButton);
+
+        postsWrapper.appendChild(headerWrapper);
     });
 }
 displayPostsList(rows, currentPage);
-
 function displayPagination(rowPerPage) {
     let pagesCount = Math.ceil(postsData.length / rowPerPage);
 
@@ -49,7 +59,8 @@ function displayPagination(rowPerPage) {
                 '.posts__list__wrapper'
             );
             postsWrapper.innerHTML = '';
-            displayPostsList(rows, i + 1);
+            currentPage = i + 1;
+            displayPostsList(rows, currentPage);
         });
     }
 }
@@ -57,3 +68,31 @@ function displayPagination(rowPerPage) {
 displayPagination(rows);
 
 function displayPaginationButton() {}
+
+const form = document.querySelector('.form');
+const search = document.querySelector('.header__search');
+
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const pattern = search.value;
+    currentDataDublicate = currentDataDublicate.filter(
+        (el) => el.title.toLowerCase().indexOf(pattern.toLowerCase()) >= 0
+    );
+    console.log(currentDataDublicate);
+    displayPostsList(rows, currentPage, currentDataDublicate);
+});
+
+// form.addEventListener('submit', (e) => {
+//     e.preventDefault();
+//     const pattern = search.value;
+//     const paginatedData = postsData.filter(
+//         (el) => el.title.indexOf(pattern) >= 0
+//     );
+
+//     console.log(paginatedData);
+//     console.log(pattern);
+
+//     displayPostsList(paginatedData, 0, 0);
+// });
+
+// function displayPaginationButton() {}
