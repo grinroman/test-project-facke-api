@@ -7,6 +7,7 @@ const postsData = await postService.getAllPosts();
 let currentPage = 1;
 let rows = 10;
 let currentDataDublicate;
+
 async function displayPostsList(rowPerPage, page = 0, incomingArr) {
     const postsWrapper = document.querySelector('.posts__list__wrapper');
     --page;
@@ -19,9 +20,6 @@ async function displayPostsList(rowPerPage, page = 0, incomingArr) {
         paginatedData = postsData.slice(start, end);
     }
     console.log(paginatedData);
-    // const paginatedData = incomingArr
-    //     ? incomingArr
-    //     : postsData.slice(start, end);
     currentDataDublicate = postsData.slice(start, end);
     postsWrapper.innerHTML = '';
     paginatedData.forEach((el) => {
@@ -38,6 +36,11 @@ async function displayPostsList(rowPerPage, page = 0, incomingArr) {
         deleteButton.innerText = `✖`;
         deleteButton.classList.add('delete__button');
         headerWrapper.appendChild(deleteButton);
+
+        deleteButton.addEventListener('click', (e) => {
+            deleteButton.parentElement.remove();
+            postService.deleteOnePost(el.id);
+        });
 
         postsWrapper.appendChild(headerWrapper);
     });
@@ -81,18 +84,3 @@ form.addEventListener('submit', (e) => {
     console.log(currentDataDublicate);
     displayPostsList(rows, currentPage, currentDataDublicate);
 });
-
-// form.addEventListener('submit', (e) => {
-//     e.preventDefault();
-//     const pattern = search.value;
-//     const paginatedData = postsData.filter(
-//         (el) => el.title.indexOf(pattern) >= 0
-//     );
-
-//     console.log(paginatedData);
-//     console.log(pattern);
-
-//     displayPostsList(paginatedData, 0, 0);
-// });
-
-// function displayPaginationButton() {}
