@@ -3,3 +3,7 @@
     padding: 0px;
     box-sizing: border-box;
 }
+
+button {
+    border: none;
+}

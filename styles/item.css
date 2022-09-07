@@ -1,0 +1,35 @@
+body {
+    background-color: #a7d2cb;
+    color: #45011b;
+}
+
+.main {
+    width: 50vw;
+    height: 100vh;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+.title {
+    min-height: 15vh;
+    background-color: #f2d388;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.title p:first-letter {
+    text-transform: uppercase;
+}
+.info p:first-letter {
+    text-transform: uppercase;
+}
+
+.info {
+    min-height: 35vh;
+    background-color: #c98474;
+    padding: 10% 20%;
+    border-radius: 15px;
+}

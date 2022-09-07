@@ -16,8 +16,17 @@
         <heder class="header__wrapper">
             <div class="popup__button">Добавить запись</div>
             <div class="search__panel">
+                <div for="" class="checkbox__wrapper"></div>
+                    <input type="checkbox" id="checkbox" /><span
+                        >Поиск по всем записям</span
+                    >
+                </div>
                 <form class="form">
-                    <input type="text" class="header__search" />
+                    <input
+                        placeholder="Поиск по странице"
+                        type="text"
+                        class="header__search"
+                    />
                 </form>
             </div>
         </heder>
@@ -25,7 +34,22 @@
             <ul class="posts__list__wrapper"></ul>
             <ul class="pagination__wrapper"></ul>
         </section>
-        <script type="module" src="js\script.js"></script>
-        <script type="module" src="js\PostService.js"></script>
+        <div class="popup">
+            <div class="popup__container">
+                <div class="popup__body">
+                    <p>Добавить запись</p>
+                    <form action="" class="add__record__form">
+                        <input
+                            type="text"
+                            placeholder="Заголовок"
+                            name="header"
+                        /><input type="text" placeholder="Текст" name="info" />
+                        <button class="form__button">Добавить запись</button>
+                    </form>
+                    <div class="popup__close__button">&times;</div>
+                </div>
+            </div>
+        </div>
+        <script type="module" src="js\firstPageScript.js"></script>
     </body>
 </html>
