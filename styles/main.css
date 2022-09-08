@@ -88,6 +88,7 @@ section {
 }
 
 .posts__list__wrapper {
+    min-height: 75vh;
     display: flex;
     align-items: center;
     flex-direction: row;

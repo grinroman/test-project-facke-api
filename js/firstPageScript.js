@@ -56,6 +56,7 @@ addForm.addEventListener('submit', (e) => {
         postsData = [userInfo, ...postsData];
     }
     displayPostsList(null, rows, currentPage);
+    if (postsData.length % 10 === 1) displayPagination(rows);
 });
 
 searchForm.addEventListener('submit', (e) => {
@@ -123,9 +124,6 @@ async function displayPostsList(incomingArr, rowPerPage, page = 0) {
                 postsData = postsData.filter((el) => el.id !== currentId);
                 paginatedData = [...paginatedData, postsData[end + 1]];
                 displayPostsList(paginatedData, rows, currentPage);
-            }
-            if (postsData % 10 == 0) {
-                displayPagination(rows);
             }
         });
 
